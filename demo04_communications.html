@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="example">
+    <small-head></small-head>
+  </div>
+  <script>
+    Vue.component('small-head',{
+      template:`
+      <div>
+        <h1>this is parent component</h1>
+        <input type="text" v-model="msg"/>
+        <button>speak</button>
+        <hr/>
+        <big-head :content="msg"></big-head>
+        </div>
+      `,
+      data(){
+        return{
+          msg:''
+        }
+      }
+    })
+    Vue.component('big-head',{
+      template:`
+      <div>
+        <h1>this is child component</h1>
+          <p>{{content}}</p>
+          <button @click="getParentInfo">aquire info from parent</button>
+        </div>
+      `,
+      props:['content'],
+      methods:{
+        getParentInfo(){
+          console.log(this.$parent.msg);
+        }
+      }
+    })
+    new Vue({
+      el:'#example'
+    })
+  </script>
+</body>
+</html>

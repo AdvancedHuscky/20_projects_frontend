@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="example">
+    <my-component></my-component>
+  </div>
+  <script>
+  Vue.component('my-component',{
+    template:`
+      <div>
+        <input type="text" v-model="uname">
+        <p>{{uname}}</p>
+        <p v-for="item in list">{{getpriceme()}}</p>
+        </div>
+    `,
+    data(){
+      return{
+        uname:'',
+        price:100,
+        list:[111,222,333,]
+      }
+    },
+    methods:{
+      getpriceme:function(){
+        console.log('methods used')
+        return this.price;
+      }
+    },
+    watch:{
+      uname(){
+        console.log(this.uname);
+      }
+    },
+    computed:{
+      priceComputed(){
+        console.log('computed property used')
+        return this.price
+      }
+    }
+  })
+  new Vue({
+    el:'#example'
+  })
+  </script>
+</body>
+</html>
