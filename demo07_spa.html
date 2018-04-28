@@ -20,20 +20,31 @@
         }
       },
       template:`
+      <div>
         <ul>
-          <li v-for="item of myList">{{item}}</li>  
+          <li v-for="(item,index) of myList" @click="jump(index)">{{item}}</li>  
         </ul>
-      `
+        <router-link to="/detail">to detail page</router-link>
+      </div>
+      `,
+      methods:{
+        jump(myIndex){
+          this.$router.push('/detail/'+this.myList[myIndex]);
+        }
+      }
     });
     let detailComponent = Vue.component('detail',{
       template:`
       <h2>this is detail page</h2>
-      `
+      `,
+      mounted(){
+        console.log(this.$route.params.num)  
+      }
     })
     const routes = [
       {path:'/',component:listComponent},
       {path:'/list',component:listComponent},
-      {path:'/detail',component:detailComponent},
+      {path:'/detail/:num',component:detailComponent},
       {path:'*',component:detailComponent}
     ];
     const router = new VueRouter({
