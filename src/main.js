@@ -11,6 +11,8 @@ Vue.prototype.$axios = Axios;
 
 import Vuex from 'vuex';
 Vue.use(Vuex);
+//引入数据仓库
+import store from './store/basic';
 
 Vue.use(VueResource);
 Vue.component('my-header',Header)
@@ -20,6 +22,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import List from '@/components/List'
 import Detail from '@/components/Detail'
+import ToDoList from '@/components/ToDoList'
 
 Vue.use(Router)
 
@@ -22,6 +23,10 @@ export default new Router({
       path: '/detail',
       name: 'detail',
       component: Detail
+    },
+    {
+      path: '/todolist',
+      component: ToDoList
     }    
   ]
 })

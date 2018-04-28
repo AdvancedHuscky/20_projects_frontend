@@ -6,7 +6,7 @@
     mounted(){
       this.$axios.get('http://jsonplaceholder.typicode.com/users')
       .then((result)=>{
-        console.log(result.data);
+        //console.log(result.data);
       })
     }
   }
