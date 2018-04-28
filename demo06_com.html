@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="example">
+    <todo-input></todo-input>
+    <todo-list></todo-list>
+  </div>
+  <script>
+    let bus = new Vue();
+    Vue.component('todoInput',{
+      template:`
+        <div>
+          <input v-model="msgItem"/>
+          <button @click="send">add</button>
+        </div>
+      `,
+      data(){
+        return{
+          msgItem:'',
+          msgList:[],
+        }
+      },
+      methods:{
+        send(){
+          bus.$emit('rcv',this.msgItem);
+          this.msgItem = '';
+        }
+      }
+    });
+    Vue.component('todoList',{
+      data(){
+        return{
+          list:[],
+        }
+      },
+      mounted(){
+        //给自定义事件绑定处理函数，负责接收数据用
+        bus.$on('rcv',(msg)=>{
+          console.log("recieved msg" + msg)
+          this.list.unshift(msg);
+        })
+      },
+      template:`
+        <ul>
+          <li v-for="item of list">{{item}}</li>
+        </ul>
+      `,
+    })
+    new Vue({
+      el:'#example',
+
+    })
+  </script>
+</body>
+</html>

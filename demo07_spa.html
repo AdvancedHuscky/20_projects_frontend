@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+  <div id="example">
+    <router-view></router-view>
+  </div>
+  <script>
+    let listComponent = Vue.component('list',{
+      data(){
+        return{
+          myList:[100,200,300,400]
+        }
+      },
+      template:`
+        <ul>
+          <li v-for="item of myList">{{item}}</li>  
+        </ul>
+      `
+    });
+    let detailComponent = Vue.component('detail',{
+      template:`
+      <h2>this is detail page</h2>
+      `
+    })
+    const routes = [
+      {path:'/',component:listComponent},
+      {path:'/list',component:listComponent},
+      {path:'/detail',component:detailComponent},
+      {path:'*',component:detailComponent}
+    ];
+    const router = new VueRouter({
+      routes
+    })
+    new Vue({
+      el:'#example',
+      router
+    })
+  </script>
+</body>
+</html>

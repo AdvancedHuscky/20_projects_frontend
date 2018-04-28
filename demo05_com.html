@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <div id="example">
+    <parent></parent>
+  </div>
+  <script>
+    Vue.component('parent',{
+      template:`
+        <div>
+          <h1>This is parent component</h1>
+          <p>this is info from children:{{msg}}</p>
+          <child @recieve="recieveMsg"></child>
+          <button @click = "getChildMsg">aquire next info from next child component</button>
+          <child ref="child"></child>
+        </div>
+      `,
+      data(){
+        return{
+          msg:'',
+        }
+      },
+      methods:{
+        recieveMsg(msg){
+          this.msg = msg
+        },
+        getChildMsg(){
+          console.log(this.$refs.child.msg)
+        }
+      }
+    });
+    Vue.component('child',{
+      template:`
+        <div>
+          <h2>This is child component</h2>
+          <input type="text" v-model="msg"/>
+          <button @click="sendMsg">send to parent</button>
+        </div>
+      `,
+      data(){
+        return{
+          msg:''
+        }
+      },
+      methods:{
+        sendMsg(){
+          this.$emit('recieve',this.msg);
+          this.msg = "";
+        }
+      }
+    })
+    new Vue({
+      el:'#example',
+    })
+  </script>
+</body>
+</html>
